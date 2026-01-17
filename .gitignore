@@ -1,0 +1,47 @@
+# Terraform state and lock files
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Terraform plan files
+*.tfplan
+plan.json
+
+# Environment variables
+.env
+.env.local
+*.pem
+*.key
+
+# IDE
+.idea/
+*.swp
+*.swo
+*~
+.vscode/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logging
+*.log
+crash.log
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Pre-commit
+.pre-commit-framework.sh
+
+# Keep these patterns for committed template examples
+!stacks/**/terraform.tfvars.example
+!envs/**/terraform.tfvars.example

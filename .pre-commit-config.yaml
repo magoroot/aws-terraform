@@ -1,0 +1,39 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-json
+      - id: check-merge-conflict
+      - id: check-added-large-files
+        args: ['--maxkb=1000']
+
+  - repo: https://github.com/hashicorp/pre-commit-terraform
+    rev: v1.86.1
+    hooks:
+      - id: terraform_fmt
+        args:
+          - --args=-recursive
+          - --args=-write=true
+      - id: terraform_validate
+      - id: terraform_tflint
+        args:
+          - --args=--config=.tflint.hcl
+      - id: terraform_trivy
+        language_version: latest
+
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v3.1.1
+    hooks:
+      - id: prettier
+        types_or:
+          - markdown
+          - yaml
+
+ci:
+  autofix_commit_msg: 'chore: auto fixes by pre-commit hooks'
+  autofix_prs: true
+  autoupdate_branch: ''
+  autoupdate_commit_msg: 'chore: pre-commit autoupdate'
