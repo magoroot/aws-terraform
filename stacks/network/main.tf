@@ -18,9 +18,6 @@ module "vpc" {
   enable_dns_hostnames = var.enable_dns_hostnames
   enable_dns_support   = var.enable_dns_support
 
-  enable_s3_endpoint      = var.enable_s3_endpoint
-  enable_dynamodb_endpoint = var.enable_dynamodb_endpoint
-
   public_subnet_tags = {
     Type = "Public"
   }
