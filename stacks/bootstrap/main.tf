@@ -86,7 +86,7 @@ data "aws_iam_policy_document" "state_bucket_policy" {
     condition {
       test     = "StringNotEquals"
       variable = "s3:x-amz-server-side-encryption"
-      values = var.enable_encryption_kms ? ["aws:kms"] : ["AES256", "aws:kms"]
+      values   = var.enable_encryption_kms ? ["aws:kms"] : ["AES256", "aws:kms"]
     }
   }
 }

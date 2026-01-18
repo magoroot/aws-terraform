@@ -6,11 +6,11 @@ module "vpc" {
   cidr = var.vpc_cidr
 
   azs             = data.aws_availability_zones.available.names
-  public_subnets = var.public_subnet_cidrs
+  public_subnets  = var.public_subnet_cidrs
   private_subnets = var.private_subnet_cidrs
 
-  enable_nat_gateway = var.enable_nat_gateway
-  single_nat_gateway = var.single_nat_gateway
+  enable_nat_gateway     = var.enable_nat_gateway
+  single_nat_gateway     = var.single_nat_gateway
   one_nat_gateway_per_az = false
 
   enable_vpn_gateway = var.enable_vpn_gateway
@@ -56,9 +56,9 @@ resource "aws_iam_role" "vpc_flow_logs_role" {
 }
 
 resource "aws_iam_role_policy" "vpc_flow_logs_policy" {
-  count  = var.enable_flow_logs ? 1 : 0
-  name   = "${local.name_prefix}-vpc-flowlogs-policy"
-  role   = aws_iam_role.vpc_flow_logs_role[0].id
+  count = var.enable_flow_logs ? 1 : 0
+  name  = "${local.name_prefix}-vpc-flowlogs-policy"
+  role  = aws_iam_role.vpc_flow_logs_role[0].id
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
@@ -78,13 +78,13 @@ resource "aws_iam_role_policy" "vpc_flow_logs_policy" {
 }
 
 resource "aws_flow_log" "vpc" {
-  count                   = var.enable_flow_logs ? 1 : 0
-  iam_role_arn            = aws_iam_role.vpc_flow_logs_role[0].arn
-  log_destination         = aws_flow_logs_log_group.vpc[0].arn
-  traffic_type            = "ALL"
-  vpc_id                  = module.vpc.vpc_id
-  log_destination_type    = "cloud-watch-logs"
-  log_format              = "${local.name_prefix}-vpc-flowlogs"
+  count                = var.enable_flow_logs ? 1 : 0
+  iam_role_arn         = aws_iam_role.vpc_flow_logs_role[0].arn
+  log_destination      = aws_flow_logs_log_group.vpc[0].arn
+  traffic_type         = "ALL"
+  vpc_id               = module.vpc.vpc_id
+  log_destination_type = "cloud-watch-logs"
+  log_format           = "${local.name_prefix}-vpc-flowlogs"
 }
 
 data "aws_availability_zones" "available" {
